@@ -1,0 +1,9 @@
+﻿  SeqList.c
+e:\代码\数据结构初级\test_5_21\test_5_21\seqlist.c(31): warning C4033: “CheckCapacity”必须返回值
+e:\代码\数据结构初级\test_5_21\test_5_21\seqlist.c(67): warning C4550: 表达式计算为缺少参数列表的函数
+e:\代码\数据结构初级\test_5_21\test_5_21\seqlist.c(126): warning C4029: 声明的形参表不同于定义
+e:\代码\数据结构初级\test_5_21\test_5_21\seqlist.c(132): warning C4550: 表达式计算为缺少参数列表的函数
+e:\代码\数据结构初级\test_5_21\test_5_21\seqlist.c(186): warning C4029: 声明的形参表不同于定义
+e:\代码\数据结构初级\test_5_21\test_5_21\seqlist.c(57): warning C4715: “CheckCapacity”: 不是所有的控件路径都返回值
+  test_5_21.vcxproj -> E:\代码\数据结构初级\test_5_21\Debug\test_5_21.exe
+  test_5_21.vcxproj -> E:\代码\数据结构初级\test_5_21\Debug\test_5_21.pdb (Partial PDB)
