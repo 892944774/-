@@ -113,3 +113,340 @@
 //	return slow;
 //} 
 
+//合并两个有序链表
+//typedef struct ListNode ListNode;
+//ListNode* mergeTwoLists(ListNode* l1, ListNode* l2)
+//{
+//	//l.l1为空，合并后为l2数组
+//	if (NULL == l1)
+//		return l2;
+//	
+//	if (NULL == l2)
+//		return l1;
+//
+//	ListNode* cur1 = l1;
+//	ListNode* cur2 = l2;
+//	ListNode* newhead = NULL;
+//	ListNode* tailNode = NULL;
+//
+//	//l1和l2两个链表均不为空
+//	if (cur1->val <= cur2->val)
+//	{
+//		newhead = cur1;
+//		tailNode = cur1;
+//		cur1 = cur1->next;
+//	}
+//	else
+//	{
+//		newhead = cur2;
+//		tailNode = cur2;
+//		cur2 = cur2->next;
+//	}
+//
+//	//开始比较两个链表中数字大小，并进行尾插
+//	while (cur1 && cur2)
+//	{
+//		if (cur1->val <= cur2->val)
+//		{
+//			tailNode->next = cur1;
+//			cur1 = cur1->next;
+//			//tailNode = tailNode->next;
+//		}
+//		else
+//		{
+//			tailNode->next = cur1;
+//			cur1 = cur1->next;
+//			//tailNode = tailNode->next;
+//		}
+//		tailNode = tailNode->next;
+//	}
+//
+//	//如果有一个提前尾插结束，另一个数组还有多余
+//	if (cur1)
+//		tailNode->next = cur1;
+//	else
+//		tailNode->next = cur2;
+//
+//	return newhead;
+//}
+
+////改进
+//typedef struct ListNode ListNode;
+//ListNode* mergeTwoLists(ListNode* l1, ListNode* l2)
+//{
+//	//l.l1为空，合并后为l2数组
+//	if (NULL == l1)
+//		return l2;
+//	
+//	if (NULL == l2)
+//		return l1;
+//
+//	//链表均不为空
+//	ListNode newhead;
+//	ListNode* cur1 = l1;
+//	ListNode* cur2 = l2; 
+//	ListNode* tailNode = &newhead;
+//
+//	//开始比较两个链表中数字大小，并进行尾插
+//	while (cur1 && cur2)
+//	{
+//		if (cur1->val <= cur2->val)
+//		{
+//			tailNode->next = cur1;
+//			cur1 = cur1->next;
+//			//tailNode = tailNode->next;
+//		}
+//		else
+//		{
+//			tailNode->next = cur1;
+//			cur1 = cur1->next;
+//			//tailNode = tailNode->next;
+//		}
+//		tailNode = tailNode->next;
+//	}
+//
+//	//如果有一个提前尾插结束，另一个数组还有多余
+//	if (cur1)
+//		tailNode->next = cur1;
+//	else
+//		tailNode->next = cur2;
+//
+//	return newhead;
+//}
+
+//编写代码，以给定值x为基准将链表分割成两部分，所有小于x的结点排在大于或等于x的结点之前
+//给定一个链表的头指针 ListNode* pHead，请返回重新排列后的链表的头指针。注意：分割以后保持 原来的数据顺序不变。
+//typedef struct ListNode ListNode
+//ListNode* partition(ListNode* pHead, int x)
+//{
+//	if (NULL == pHead)
+//		return NULL;
+//
+//	ListNode lessxhead(0);
+//	ListNode* lessTail = &lessTail;
+//	ListNode greatxHead(0);
+//	ListNode* greatTail = &greatxHead;
+//	ListNode* cur = pHead;
+//	while (cur)
+//	{
+//		pHead = cur->next;
+//
+//		//将cur尾插到lessHead或greatHead
+//		if (cur->val < x)
+//		{
+//			lessTail->next = cur;
+//			lessTail = cur;
+//		}
+//		else
+//		{
+//			greatTail->next = cur;
+//			greatTail = cur;
+//		}
+//		cur = pHead;
+//	}
+//
+//	//最后的时候记着把greatTail->next的置位NULL
+//	greatTail->next = NULL;
+//	lessTail->next = greatxHead.next;
+//	return lessHead.next;
+//}
+
+//对于一个链表，请设计一个时间复杂度为O(n), 额外空间复杂度为O(1)的算法，判断其是否为回文结构。
+//给定一个链表的头指针A，请返回一个bool值，代表其是否为回文结构。保证链表长度小于等于900。
+//测试样例：
+//1->2->2->1
+//返回：true
+//法1
+//bool chkPalindrome(ListNode* A) 
+//{
+//	//空链表也是一种回文结构
+//	if (NULL == A)
+//		return true;
+//
+//	int array[900] = {0}; 
+//	//将链表中的节点放置到array的数组中
+//	ListNode* cur = A;
+//	int size = 0;
+//	while(cur)
+//	{
+//		array[size++] = cur->val;
+//		cur = cur->next;
+//	}
+//
+//	int left = 0, right = size - 1;
+//		while (left < right)
+//		{
+//			if (array[left] != array[right])
+//				return false; 
+//
+//			left++;
+//			right--;
+//		}
+//		return true;
+//}
+
+//法2 找中间节点
+//ListNode* ReverseListNode(ListNode* head)
+//{
+//	ListNode* cur = head;
+//	ListNode* prev = NULL;
+//	ListNode* next = NULL;
+//	while (cur)
+//	{
+//		next = cur->next;
+//		cur->next = prev;
+//		prev = cur;
+//		cur = next;
+//	}
+//	return prev;
+//}
+//
+//bool chkPalindrome(ListNode* A)
+//{
+//	if (NULL == A)
+//		return true;
+//
+//	//找链表中的中间节点
+//	ListNode* fast = A;
+//	ListNode* slow = A;
+//	ListNode* prevSlow = NULL;
+//	while (fast && fast->next)
+//	{
+//		fast = fast->next->next;
+//		prevSlow = slow;
+//		slow = slow->next;
+//	}
+//
+//	prevSlow->next = NULL;
+//
+//	//中间节点为slow
+//	//将中间的节点及其后面的所有节点进行逆置
+//	ListNode* rightHead = ReverseList(slow);
+//
+//	//检测两个链表中的节点是否相同 
+//	ListNode* curRight = rightHead;
+//	ListNode* curLeft = A;
+//
+//	while (curLeft && curRight)
+//	{
+//		if (curLeft->val != curRight->val)
+//			return false;
+//
+//		curLeft = curLeft->next;
+//		curRight = curRight->next;
+//	}
+//
+//	//需要将链表还原
+//	prevSlow->next = ReverseList(rightHead);
+//	return true;
+//	}
+//}
+
+//输入两个链表，找出它们的第一个公共结点
+//typedef struct ListNode ListNode
+//struct ListNode *getIntersectionNode(struct ListNode *headA, struct ListNode *headB)
+//{
+//	//两个链表中有一个为空，不可能相交
+//	if (headB == NULL || headA == NULL)
+//		return NULL;
+//
+//	 //两个链表都不为空
+//	//1 两个链表是否相交：找到两个链表中的最后一个节点，监测该节点的地址是否相同
+//	//计算两个链表中节点的个数
+//	ListNode* curA = headA;
+//	int countA = 1;
+//	while (curA->next)
+//	{
+//		countA++;
+//		curA = curA->next;
+//	}
+//
+//	ListNode* curB = headB;
+//	int countB = 1;
+//	while (curB->next)
+//	{
+//		countB++;
+//		curB = curB->next;
+//	}
+//
+//	//检测循环中最后一个元素的地址是否相同，不同则不想交
+//	if (curA != curB)
+//		return NULL;
+//
+//	//相交求交点 
+//	//让长的链表从起始位置走gap步
+//	curA = headA;
+//	curB = headB;
+//	int gap = countA - countB;
+//	if (gap > 0)
+//	{
+//		while (gap--)
+//			curA = curA->next;
+//	}
+//	else
+//	{
+//		//此时gap为负数，只有gap=0时程序才跳出循环
+//		while (gap++)
+//			curB = curB->next;
+//	}
+//
+//	while (curA != curB)
+//	{
+//		curA = curA->next;
+//		curB = curB->next;
+//	}
+//	return curA;
+//}
+
+//给定一个链表，判断链表中是否有环。
+//为了表示给定链表中的环，我们使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。 如果 pos 是 - 1，则在该链表中没有环
+//bool hasCycle(struct ListNode *head) 
+//{
+//	struct ListNode* fast = head;
+//	struct ListNode* slow = head;
+//
+//	while (fast && fast->next)
+//	{
+//		fast = fast->next->next;
+//		slow = slow->next;
+//
+//		//在环中相遇
+//		if (slow == fast)
+//			return true;
+//	}
+//	return false;
+//}
+
+//给定一个链表，返回链表开始入环的第一个节点。 如果链表无环，则返回 NULL
+typedef struct ListNode ListNode;
+struct ListNode* hasCycle(ListNode* head)
+{
+	struct ListNode* fast = head;
+	struct ListNode* slow = head;
+	while (fast && fast->next)
+	{
+		fast = fast->next->next;
+		slow = slow->next;
+
+		if (fast == slow)
+			return fast;
+	}
+	return NULL;
+}
+
+struct ListNode *detectCycle(struct ListNode *head)
+{
+	ListNode* PM = hasCycle(head);
+	//两个指针不相等时则不带环
+	if (PM == NULL)
+		return NULL;
+
+	struct ListNode* PH = head;
+
+	while (PH != PM)
+	{
+		PH = PH->next;
+		PM = PM->next;
+	}
+	return PM;
+}
