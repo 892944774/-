@@ -418,35 +418,88 @@
 //}
 
 //给定一个链表，返回链表开始入环的第一个节点。 如果链表无环，则返回 NULL
-typedef struct ListNode ListNode;
-struct ListNode* hasCycle(ListNode* head)
-{
-	struct ListNode* fast = head;
-	struct ListNode* slow = head;
-	while (fast && fast->next)
-	{
-		fast = fast->next->next;
-		slow = slow->next;
+//typedef struct ListNode ListNode;
+//struct ListNode* hasCycle(ListNode* head)
+//{
+//	struct ListNode* fast = head;
+//	struct ListNode* slow = head;
+//	while (fast && fast->next)
+//	{
+//		fast = fast->next->next;
+//		slow = slow->next;
+//
+//		if (fast == slow)
+//			return fast;
+//	}
+//	return NULL;
+//}
+//
+//struct ListNode *detectCycle(struct ListNode *head)
+//{
+//	ListNode* PM = hasCycle(head);
+//	//两个指针不相等时则不带环
+//	if (PM == NULL)
+//		return NULL;
+//
+//	struct ListNode* PH = head;
+//
+//	while (PH != PM)
+//	{
+//		PH = PH->next;
+//		PM = PM->next;
+//	}
+//	return PM;
+//}
 
-		if (fast == slow)
-			return fast;
-	}
-	return NULL;
-}
+//对链表进行插入排序
+//插入排序算法：
+//1插入排序是迭代的，每次只移动一个元素，直到所有元素可以形成一个有序的输出列表。
+//2每次迭代中，插入排序只从输入数据中移除一个待排序的元素，找到它在序列中适当的位置，并将其插入。
+//3重复直到所有输入数据插入完为止
+//typedef struct ListNode ListNode;
+//struct ListNode* insertionSortList(struct ListNode* head) 
+//{
+//	//链表为空或者链表中只有一个节点
+//	if (NULL == head || NULL == head->next)
+//		return head;
+//
+//	//链表中至少有两个节点
+//	//从原链表中获取一个节点将其插入到新链表中
+//	ListNode* newHead = NULL;
+//	ListNode* cur = head;
+//	while (cur)
+//	{
+//		//cur指向的链表，插入到newHead指向的新链表，构成新的排序
+//		head = cur->next;
+//
+//			//新链表中有节点，找新插入节点的位置
+//			ListNode* insertPos = newHead;
+//			ListNode* insertPosPrev = NULL;
+//			while (insertPos)
+//			{
+//				if (cur->val > insertPos->val)
+//				{
+//					insertPosPrev = insertPos; 
+//					insertPos = insertPos->next;
+//				}
+//				else
+//				{
+//					break;
+//				}
+//			}
+//			if (NULL == insertPosPrev)
+//			{
+//				cur->next = newHead;
+//				newHead = cur;
+//			}
+//			else
+//			{
+//				//cur节点中的数据比insertPos节点中的数据小
+//				cur->next = insertPos;
+//				insertPosPrev->next = cur;
+//			}
+//		cur = head;
+//	}
+//	return newHead;
+//}
 
-struct ListNode *detectCycle(struct ListNode *head)
-{
-	ListNode* PM = hasCycle(head);
-	//两个指针不相等时则不带环
-	if (PM == NULL)
-		return NULL;
-
-	struct ListNode* PH = head;
-
-	while (PH != PM)
-	{
-		PH = PH->next;
-		PM = PM->next;
-	}
-	return PM;
-}
