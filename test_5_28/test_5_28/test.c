@@ -477,11 +477,13 @@
 //			ListNode* insertPosPrev = NULL;
 //			while (insertPos)
 //			{
+				//先比较，定位插入位置，比插入的数据大，向后移继续寻找
 //				if (cur->val > insertPos->val)
 //				{
 //					insertPosPrev = insertPos; 
 //					insertPos = insertPos->next;
 //				}
+				//跳出，进行插入
 //				else
 //				{
 //					break;
@@ -501,5 +503,121 @@
 //		cur = head;
 //	}
 //	return newHead;
+//}
+
+//复制带随机指针的链表
+//typedef struct Node Node;
+//
+//Node* BuyRandomListNode(int val)
+//{
+//	Node* newNode = (Node*)malloc(sizeof(Node));
+//	if (NULL == newNode)
+//		return NULL;
+//
+//	newNode->val = val;
+//	newNode->next = NULL;
+//	newNode->random = NULL;
+//
+//	return newNode;
+//}
+//
+//struct Node* copyRandomList(struct Node* head) 
+//{
+//	if (NULL == head)
+//		return NULL;
+//
+//	//1 在原链表中每个节点后插入值相等的新节点    时间复杂度O(N)
+//	Node* cur = head;
+//	Node* newNode = NULL;
+//	while (cur)
+//	{
+//		newNode = BuyRandomListNode(cur->val);
+//		if (NULL == newNode)
+//			return NULL;
+//
+//		//插入新节点    
+//		newNode->next = cur->next;
+//		cur->next = newNode;
+//		cur = newNode->next;
+//	}
+//	
+//	//2 给新节点的随机指针域进行赋值     时间复杂度O(N)
+//	//将cur的指针域指向head
+//	cur = head;
+//	while (cur)
+//	{
+//		newNode = cur->next;//首先将newNode固定在cur的下一个位置
+//		if (cur->random)
+//			newNode->random = cur->random->next;
+//
+//		cur = newNode->next;//最后将cur向后走一步
+//	}
+//
+//	//3 将新节点从原链表中拆下来    时间复杂度O(N)
+//	Node* newHead = head->next;
+//	cur = head;
+//	while (cur->next)
+//	{ 
+//		newNode = cur->next;
+//		cur->next = newNode->next;
+//		cur = newNode;
+//	}
+//
+//	//总的时间复杂度 O(3N) == O(N)
+//	return newHead;
+//}
+
+//在一个排序的链表中，存在重复结点，删除重复节点，重复的结点不保留，返回链表头指针。 例如，链表1->2->3->3->4->4->5 处理后为 1->2->5
+//ListNode* deleteDuplication(ListNode* pHead)
+//{
+//	ListNode* start = pHead;
+//	ListNode* end = pHead;
+//	ListNode* prev = NULL;
+//
+//	while (start)
+//	{
+//		end = start->next;
+//
+//		//1 找重复节点的范围
+//		while (end)
+//		{
+//			//找到了
+//			if (start->val != end->val)
+//				break;
+//
+//			//继续寻找
+//			end = end->next;
+//		}
+//
+//		//2 删除[start, end)区间中的节点
+//		if (start->next == end)
+//		{
+//			//区间中没有重复的元素
+//			prev = start;
+//			start = end;
+//		}
+//		else
+//		{
+//			//[start, end)有重复节点
+//			while (start != end)
+//			{
+//				//头删
+//				if (start == pHead)
+//				{
+//					pHead = start->next;
+//					free(start);
+//					start = pHead;
+//				}
+//				else
+//				{
+//					//其他节点的删除方式
+//					prev->next = start->next;
+//					free(start);
+//					start = prev->next;
+//				}
+//			}
+//		}
+//	} 
+//	return pHead;
 //}
 
