@@ -142,3 +142,87 @@
 //	return ret;
 //}
 
+//用两个栈模拟实现队列
+//typedef int DataType;
+//typedef struct Stack
+//{
+//	DataType* array;
+//	int capacity;
+//	int size;
+//}Stack;
+//
+////初始化
+//void StackInit(Stack* ps)
+//{
+//	assert(ps);
+//	ps->array = (DataType*)maollc(sizeof(DataType)*3);
+//	ps->capacity = 3;
+//	ps->size = 0;
+//}
+//
+//void CheckCapacity(Stack* ps)
+//{
+//	if (ps->capacity == ps->size)
+//	{
+//		//开辟新空间
+//		int newCapacity = ps->capacity * 2;
+//		DataType* temp = (DataType*)malloc(sizeof(DataType)* newCapacity);
+//
+//		if (temp)
+//		{
+//			for (int i = 0; i < ps->size; i++)
+//				temp[i] = ps->array[i];
+//		}
+//
+//		free(ps->array);
+//		ps->array = temp;
+//		ps->capacity = newCapacity;
+//	}
+//}
+//
+//int CheckEmpty(Stack* ps)
+//{
+//	assert(ps);
+//	return 0 == ps->size;
+//}
+//
+////入栈
+//void StackPush(Stack* ps, DataType data)
+//{
+//	assert(ps);
+//	CheckCapacity(ps);
+//
+//	ps->array[ps->size++] = data;
+//}
+//
+////出栈
+//void StackPop(Stack* ps)
+//{
+//	if (StackEmpty(ps))
+//		return;
+//	
+//	ps->size--;
+//}
+//
+////获取栈顶元素
+//DataType StackTop(Stack* ps)
+//{
+//	assert(ps);
+//	return ps->array[ps->size-1];
+//}
+//
+//int StackSize(Stack* ps)
+//{
+//	assert(ps);
+//	return ps->size;
+//}
+//
+//void StackDestroy(Stack* ps)
+//{
+//	assert(ps);
+//	free(ps->array);
+//	ps->capacity = 0;
+//	ps->size = 0;
+//}
+
+//用两个队列模拟实现栈
