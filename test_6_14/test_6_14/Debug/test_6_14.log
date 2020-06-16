@@ -1,0 +1,4 @@
+﻿  Heap.c
+e:\代码\数据结构初级\test_6_14\test_6_14\heap.c(126): warning C4029: 声明的形参表不同于定义
+  test_6_14.vcxproj -> E:\代码\数据结构初级\test_6_14\Debug\test_6_14.exe
+  test_6_14.vcxproj -> E:\代码\数据结构初级\test_6_14\Debug\test_6_14.pdb (Partial PDB)
