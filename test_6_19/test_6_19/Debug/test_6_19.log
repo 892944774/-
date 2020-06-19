@@ -1,0 +1,4 @@
+﻿  main.c
+e:\代码\数据结构初级\test_6_19\test_6_19\main.c(5): warning C4013: “TestBinTree”未定义；假设外部返回 int
+  test_6_19.vcxproj -> E:\代码\数据结构初级\test_6_19\Debug\test_6_19.exe
+  test_6_19.vcxproj -> E:\代码\数据结构初级\test_6_19\Debug\test_6_19.pdb (Partial PDB)
