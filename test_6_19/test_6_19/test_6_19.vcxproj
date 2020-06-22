@@ -114,7 +114,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BinaryTree.c" />
+<<<<<<< HEAD
     <ClCompile Include="LevelOrder.c" />
+=======
+>>>>>>> 588eb51c2d638b1d64a77d6d1f110ab0e46b9fea
     <ClCompile Include="main.c" />
   </ItemGroup>
   <ItemGroup>

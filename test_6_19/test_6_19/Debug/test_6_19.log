@@ -1,3 +1,8 @@
+<<<<<<< HEAD
 ﻿  BinaryTree.c
+=======
+﻿  main.c
+e:\代码\数据结构初级\test_6_19\test_6_19\main.c(5): warning C4013: “TestBinTree”未定义；假设外部返回 int
+>>>>>>> 588eb51c2d638b1d64a77d6d1f110ab0e46b9fea
   test_6_19.vcxproj -> E:\代码\数据结构初级\test_6_19\Debug\test_6_19.exe
   test_6_19.vcxproj -> E:\代码\数据结构初级\test_6_19\Debug\test_6_19.pdb (Partial PDB)

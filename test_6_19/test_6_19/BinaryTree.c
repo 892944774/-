@@ -66,6 +66,7 @@ void PostOrder(BTNode* root)
 	printf("%d ", root->data);
 }
 
+<<<<<<< HEAD
 void DestroyTree(BTNode** root)
 {
 	assert(root);//root中的地址，也就是外部实参的地址,*root才是外部的实参
@@ -199,6 +200,8 @@ int BinaryTreeComplete(BTNode* root)
 	return 1;
 }
 
+=======
+>>>>>>> 588eb51c2d638b1d64a77d6d1f110ab0e46b9fea
 void TestBinTree()
 {
 	BTNode* root = CreateBinTree();
@@ -213,6 +216,7 @@ void TestBinTree()
 	printf("后序遍历:");  
 	PostOrder(root);
 	printf("\n");
+<<<<<<< HEAD
 
 	printf("%d\n", GetNodeCount(root));
 	printf("%d\n", GetLeafNodeCount(root));
@@ -229,3 +233,6 @@ void TestBinTree()
 	DestroyTree(&root);
 }
 
+=======
+}
+>>>>>>> 588eb51c2d638b1d64a77d6d1f110ab0e46b9fea
