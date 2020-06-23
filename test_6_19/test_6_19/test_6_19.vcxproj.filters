@@ -21,12 +21,9 @@
     <ClCompile Include="main.c">
       <Filter>源文件</Filter>
     </ClCompile>
-<<<<<<< HEAD
     <ClCompile Include="LevelOrder.c">
       <Filter>源文件</Filter>
     </ClCompile>
-=======
->>>>>>> 588eb51c2d638b1d64a77d6d1f110ab0e46b9fea
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BinaryTree.h">

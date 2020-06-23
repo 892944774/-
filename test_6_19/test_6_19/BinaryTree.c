@@ -16,23 +16,21 @@ BTNode* BuyBinTreeNode(BTNDataType data)
 	return newNode;
 }
 
-BTNode* CreateBinTree()
+//array数组中，保存的是二叉树中所有节点的值域
+BTNode* CreateBinTree(int array[], int size, int* index, int invalid)
 {
 	BTNode* root = NULL;
-	BTNode* n1 = BuyBinTreeNode(1);
-	BTNode* n2 = BuyBinTreeNode(2);
-	BTNode* n3 = BuyBinTreeNode(3);
-	BTNode* n4 = BuyBinTreeNode(4);
-	BTNode* n5 = BuyBinTreeNode(5);
-	BTNode* n6 = BuyBinTreeNode(6);
-
-	root = n1;
-	root->left = n2;
-	n2->left = n3;
-
-	root->right = n4;
-	n4->left = n5;
-	n4->right = n6;
+	if (*index < size && array[*index] != invalid)
+	{
+		//创建根节点
+		root = BuyBinTreeNode(array[*index]);
+		//创建根节点的左子树
+		++(*index);
+		root->left = CreateBinTree(array, size, index, invalid);
+		//创建根节点的右子树
+		++(*index);
+		root->right = CreateBinTree(array, size, index, invalid);
+	}
 	return root;
 }
 
@@ -66,7 +64,6 @@ void PostOrder(BTNode* root)
 	printf("%d ", root->data);
 }
 
-<<<<<<< HEAD
 void DestroyTree(BTNode** root)
 {
 	assert(root);//root中的地址，也就是外部实参的地址,*root才是外部的实参
@@ -143,7 +140,7 @@ int GetHeight(BTNode* root)
 	return leftHeight > rightHeight ? leftHeight + 1 : rightHeight + 1;
 }
 
-int BinaryTreeComplete(BTNode* root)
+/*int BinaryTreeComplete(BTNode* root)
 {
 	int flag = 0;
 	int ret = 0;
@@ -198,13 +195,35 @@ int BinaryTreeComplete(BTNode* root)
 	DestroyQueue(&q);
 	return ret;
 	return 1;
+}*/
+
+BTNode* CopyBinTree(BTNode* root)
+{
+	BTNode* newroot = NULL;
+	if (root)
+	{
+		//拷贝根节点
+		newroot = BuyBinTreeNode(root->data);
+
+		//拷贝根节点的左子树
+		newroot->left = CopyBinTree(root->left);
+
+		//拷贝根节点的右子树
+		newroot->right = CopyBinTree(root->right);
+	}
+	return newroot;
 }
 
-=======
->>>>>>> 588eb51c2d638b1d64a77d6d1f110ab0e46b9fea
 void TestBinTree()
 {
-	BTNode* root = CreateBinTree();
+	//将二叉树的元素放在数组中
+	int array[] = { 1,2,3,-1,-1,-1,4,5,-1,-1, 6 };
+	int index = 0;
+	BTNode* root = CreateBinTree(array, sizeof(array)/sizeof(array[0]), &index, -1);
+
+
+	BTNode* newroot = NULL;
+
 	printf("前序遍历:");
 	PreOrder(root);
 	printf("\n");
@@ -216,23 +235,33 @@ void TestBinTree()
 	printf("后序遍历:");  
 	PostOrder(root);
 	printf("\n");
-<<<<<<< HEAD
 
-	printf("%d\n", GetNodeCount(root));
-	printf("%d\n", GetLeafNodeCount(root));
-	printf("%d\n", GetKLevelNodeCount(root, 2));
-	printf("%d\n", GetKLevelNodeCount(root, 3));
+	//printf("%d\n", GetNodeCount(root));
+	//printf("%d\n", GetLeafNodeCount(root));
+	//printf("%d\n", GetKLevelNodeCount(root, 2));
+	//printf("%d\n", GetKLevelNodeCount(root, 3));
 
-	BTNode* cur = Find(root, 5);
-	if (cur)
-		printf("5 是二叉树\n");
-	else
-		printf("5不是二叉树\n");
+	//BTNode* cur = Find(root, 5);
+	//if (cur)
+	//	printf("5 是二叉树\n");
+	//else
+	//	printf("5不是二叉树\n");
+
+	newroot = CopyBinTree(root);
+	printf("前序遍历:");
+	PreOrder(root);
+	printf("\n");
+
+	printf("中序遍历:");
+	InOrder(root);
+	printf("\n");
+
+	printf("后序遍历:");
+	PostOrder(root);
+	printf("\n");
 
 	printf("%d\n", GetHeight(root));
+	DestroyTree(&newroot);
 	DestroyTree(&root);
 }
 
-=======
-}
->>>>>>> 588eb51c2d638b1d64a77d6d1f110ab0e46b9fea

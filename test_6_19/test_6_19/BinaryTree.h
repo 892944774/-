@@ -12,19 +12,17 @@ typedef struct BTNode
 	BTNDataType data;
 }BTNode;
 
-BTNode* CreateBinTree();
+BTNode* CreateBinTree(int array[], int size, int* index);
 void PreOrder(BTNode* root);
 void InOrder(BTNode* root);
 void PostOrder(BTNode* root);
-<<<<<<< HEAD
 int GetNodeCount(BTNode* root); //二叉树节点的个数
 int GetLeafNodeCount(BTNode* root);//二叉树叶子节点的个数
 int GetKLevelNodeCount(BTNode* root,unsigned int k);//二叉树第K层节点的个数
 BTNode* Find(BTNode* root, BTNDataType data);//查找值为data的节点
 int GetHeight(BTNode* root);
 int BinaryTreeComplete(BTNode* root);
+BTNode* CopyBinTree(BTNode* root);
 void DestroyTree(BTNode** root);
 
-=======
->>>>>>> 588eb51c2d638b1d64a77d6d1f110ab0e46b9fea
 void TestBinTree();
