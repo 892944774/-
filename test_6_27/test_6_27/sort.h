@@ -19,4 +19,7 @@ void HeapSortOP(int array[], int size);
 
 //ц╟ещеепР
 void BubbleSort(int array[], int size);
+
+//©ЛкыеепР
+void QuickSort(int array[], int left, int right);
 void TestSort();
