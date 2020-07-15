@@ -220,12 +220,47 @@ void BubbleSort(int array[], int size)
 	}
 }
 
+//三数取中法
+int GetMiddleIndex(int array[], int left, int right)
+{
+	int mid = left + ((right - left) >> 1);
+	//三个数据：left、mid、right-1
+
+	//left为中间数
+	if (array[left] < array[right - 1])
+	{
+		if (array[mid] < array[left])
+			return left;
+		else if (array[mid] > array[right - 1])
+			return right - 1;
+		else
+			return mid;
+	}
+
+	else
+	{
+		if (array[mid] > array[left])
+			return left;
+		else if (array[mid] < array[right - 1])
+			return right - 1;
+		else
+			return mid;
+	}
+}
+
 //快速排序 -- 分割法
 int Partion1(int array[], int left, int right)
 {
 	int begin = left;
 	int end = right - 1;
-	int key = array[right-1];//关键字为最右边的数字
+	int key;
+	int keyofindex = GetMiddleIndex(array, left, right);
+
+	//将基准值和最右侧的值进行交换
+	if (keyofindex != right - 1)
+		Swap(&array[keyofindex], &array[right-1]);
+
+	key = array[right-1];//关键字为最右边的数字
 
 	while (begin<end)
 	{
@@ -254,7 +289,14 @@ int Partion2(int array[], int left, int right)
 {
 	int begin = left;
 	int end = right - 1;
-	int key = array[right - 1];//关键字为最右边的数字
+	int key;
+	int keyofindex = GetMiddleIndex(array, left, right);
+
+	//将基准值和最右侧的值进行交换
+	if (keyofindex != right - 1)
+		Swap(&array[keyofindex], &array[right - 1]);
+
+	key = array[right - 1];//关键字为最右边的数字
 
 	while (begin<end)
 	{
@@ -297,7 +339,14 @@ int Partion3(int array[], int left, int right)
 {
 	int cur = left;
 	int prev = cur - 1;
-	int key = array[right-1];
+	int key;
+	int keyofindex = GetMiddleIndex(array, left, right);
+
+	//将基准值和最右侧的值进行交换
+	if (keyofindex != right - 1)
+		Swap(&array[keyofindex], &array[right - 1]);
+
+	key = array[right - 1];//关键字为最右边的数字
 
 	while (cur < right)
 	{
@@ -316,7 +365,11 @@ int Partion3(int array[], int left, int right)
 //快速排序
 void QuickSort(int array[], int left, int right)
 {
-	if (right - left > 1)
+	if (right - left > 16)
+	{
+		//数据量较小时采用插入排序，这个阈值可以自己设定
+		InsertSort(array+left, right-left);
+	}
 	{
 		//Partion按照基准值（区间中的某个元素）对区间进行划分，左部分比基准值小，右部分比基准值大
 		//该函数返回基准值在区间中的位置
@@ -329,10 +382,79 @@ void QuickSort(int array[], int left, int right)
 	}
 }
 
+//用栈将递归转化为循环，先将栈的源文件和头文件引用
+void QuickSortNor(int array[], int size)
+{
+	int left = 0;
+	int right = size;
+	Stack s;
+	StackInit(&s);
+
+	//先放右再放左，取得时候是先左再右
+	StackPush(&s, right);
+	StackPush(&s, left);
+	while(!StackEmpty(&s))
+	{
+		//先按照基准值来划分
+		left = StackTop(&s);
+		StackPop(&s);
+
+		right = StackTop(&s);
+		stackPop(&s);
+
+		if (right - left > 1)
+		{
+			int div = Partion2(array, left, right);
+
+			StackPush();
+			//排基准值的左半侧--将右半部分的区间入栈[div+1, right)
+			StackPush(&s, right);
+			StackPush(&s, div+1);
+
+			//排基准值的右半侧--将左半部分的区间入栈[left, div)
+			StackPush(&s, div);
+			StackPush(&s, left);
+		}
+	}
+	StackDestory(&s);
+}
+
+//时间复杂度 O(N)
+void mergeData(int array[], int left, int mid, int right, int temp[])
+{
+	int index1 = left, index2 = mid, index = left;
+	while (index1 < mid && index2 < right)
+	{
+		//将较小的数据搬移到辅助空间
+		if (array[index1] <= array[index2])
+			temp[index++] = array[index1++];
+		else
+			temp[index++] = array[index2++];
+	}
+
+	//[left, mid)区间中的数据没有搬移完
+	while (index1 < mid)
+	{
+		temp[index++] = array[index1++];
+	}
+
+	while (index2 < right)
+	{
+		temp[index++] = array[index2++];
+	}
+	return mid;
+}
+
+//将两个有序的数组合并成一个有序数组
+void MergeSort(int array[], int size)
+{
+	
+}
+
 void TestSort()
 {
-	//int array[] = {4,1,7,6,3,9,5,8,0,2};
-	int array[] = { 4,1,7,6,3,9,2,8,0,5 };
+	int array[] = {4,1,7,6,3,9,5,8,0,2};
+	//int array[] = { 4,1,7,6,3,9,2,8,0,5 };
 	PrintArray(array, sizeof(array) / sizeof(array[0]));
 	printf("\n");
 	//InsertSort(array, sizeof(array) / sizeof(array[0]));

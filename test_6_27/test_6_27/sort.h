@@ -22,4 +22,10 @@ void BubbleSort(int array[], int size);
 
 //¿ìËÙÅÅĞò
 void QuickSort(int array[], int left, int right);
+
+//¹é²¢ÅÅĞò
+void MergeSort(int array[], int size);
+
+void QuickSortNor(int array[], int size);
+
 void TestSort();
