@@ -335,92 +335,92 @@ int Partion2(int array[], int left, int right)
 }
 
 //前后指针法
-int Partion3(int array[], int left, int right)
-{
-	int cur = left;
-	int prev = cur - 1;
-	int key;
-	int keyofindex = GetMiddleIndex(array, left, right);
-
-	//将基准值和最右侧的值进行交换
-	if (keyofindex != right - 1)
-		Swap(&array[keyofindex], &array[right - 1]);
-
-	key = array[right - 1];//关键字为最右边的数字
-
-	while (cur < right)
-	{
-		if (array[cur] < key && ++prev != cur)
-			Swap(&array[cur], &array[prev]);
-
-		cur++;
-	}
-
-	if (++prev != right - 1)
-		Swap(&array[right-1], &array[prev]);
-
-	return prev;
-}
+//int Partion3(int array[], int left, int right)
+//{
+//	int cur = left;
+//	int prev = cur - 1;
+//	int key;
+//	int keyofindex = GetMiddleIndex(array, left, right);
+//
+//	//将基准值和最右侧的值进行交换
+//	if (keyofindex != right - 1)
+//		Swap(&array[keyofindex], &array[right - 1]);
+//
+//	key = array[right - 1];//关键字为最右边的数字
+//
+//	while (cur < right)
+//	{
+//		if (array[cur] < key && ++prev != cur)
+//			Swap(&array[cur], &array[prev]);
+//
+//		cur++;
+//	}
+//
+//	if (++prev != right - 1)
+//		Swap(&array[right-1], &array[prev]);
+//
+//	return prev;
+//}
 
 //快速排序
-void QuickSort(int array[], int left, int right)
-{
-	if (right - left > 16)
-	{
-		//数据量较小时采用插入排序，这个阈值可以自己设定
-		InsertSort(array+left, right-left);
-	}
-	{
-		//Partion按照基准值（区间中的某个元素）对区间进行划分，左部分比基准值小，右部分比基准值大
-		//该函数返回基准值在区间中的位置
-		//[left, right)区间中的基准值位置已经存放好了，基准值左侧和基准值右侧不一定有序
-		//int div = Partion1(array, left, right);
-		int div = Partion3(array, left, right);
-
-		QuickSort(array, left, div);
-		QuickSort(array, div+1, right);
-	}
-}
+//void QuickSort(int array[], int left, int right)
+//{
+//	if (right - left > 16)
+//	{
+//		//数据量较小时采用插入排序，这个阈值可以自己设定
+//		InsertSort(array+left, right-left);
+//	}
+//	{
+//		//Partion按照基准值（区间中的某个元素）对区间进行划分，左部分比基准值小，右部分比基准值大
+//		//该函数返回基准值在区间中的位置
+//		//[left, right)区间中的基准值位置已经存放好了，基准值左侧和基准值右侧不一定有序
+//		//int div = Partion1(array, left, right);
+//		int div = Partion3(array, left, right);
+//
+//		QuickSort(array, left, div);
+//		QuickSort(array, div+1, right);
+//	}
+//}
 
 //用栈将递归转化为循环，先将栈的源文件和头文件引用
-void QuickSortNor(int array[], int size)
-{
-	int left = 0;
-	int right = size;
-	Stack s;
-	StackInit(&s);
-
-	//先放右再放左，取得时候是先左再右
-	StackPush(&s, right);
-	StackPush(&s, left);
-	while(!StackEmpty(&s))
-	{
-		//先按照基准值来划分
-		left = StackTop(&s);
-		StackPop(&s);
-
-		right = StackTop(&s);
-		stackPop(&s);
-
-		if (right - left > 1)
-		{
-			int div = Partion2(array, left, right);
-
-			StackPush();
-			//排基准值的左半侧--将右半部分的区间入栈[div+1, right)
-			StackPush(&s, right);
-			StackPush(&s, div+1);
-
-			//排基准值的右半侧--将左半部分的区间入栈[left, div)
-			StackPush(&s, div);
-			StackPush(&s, left);
-		}
-	}
-	StackDestory(&s);
-}
+//void QuickSortNor(int array[], int size)
+//{
+//	int left = 0;
+//	int right = size;
+//	Stack s;
+//	StackInit(&s);
+//
+//	//先放右再放左，取得时候是先左再右
+//	StackPush(&s, right);
+//	StackPush(&s, left);
+//	while(!StackEmpty(&s))
+//	{
+//		//先按照基准值来划分
+//		left = StackTop(&s);
+//		StackPop(&s);
+//
+//		right = StackTop(&s);
+//		stackPop(&s);
+//
+//		if (right - left > 1)
+//		{
+//			int div = Partion2(array, left, right);
+//
+//			StackPush();
+//			//排基准值的左半侧--将右半部分的区间入栈[div+1, right)
+//			StackPush(&s, right);
+//			StackPush(&s, div+1);
+//
+//			//排基准值的右半侧--将左半部分的区间入栈[left, div)
+//			StackPush(&s, div);
+//			StackPush(&s, left);
+//		}
+//	}
+//	StackDestory(&s);
+//}
 
 //时间复杂度 O(N)
-void mergeData(int array[], int left, int mid, int right, int temp[])
+void MergeData(int array[], int left, int mid, int right, int temp[])
 {
 	int index1 = left, index2 = mid, index = left;
 	while (index1 < mid && index2 < right)
@@ -438,17 +438,76 @@ void mergeData(int array[], int left, int mid, int right, int temp[])
 		temp[index++] = array[index1++];
 	}
 
+	//[mid, right)区间中数据没搬移完
 	while (index2 < right)
 	{
 		temp[index++] = array[index2++];
 	}
-	return mid;
+}
+
+void _MergeSort(int array[], int left, int right, int temp[])
+{
+	if (right - left > 1)
+	{
+		int mid = left + ((right - left) >> 1);
+
+		//[left, mid) 排左半侧
+		_MergeSort(array, left, mid, temp);
+
+		//[mid, right) 排右半侧
+		_MergeSort(array, mid, right, temp);
+
+		//将[left, mid)和[mid, right]归并到一起
+		MergeData(array, left, mid, right, temp);
+
+		//归并好之后，有序的数据保存在辅助空间temp中，并拷贝到原空间中
+		memcpy(array + left, temp + left, (right - left) * sizeof(array[0]));
+	}
 }
 
 //将两个有序的数组合并成一个有序数组
+//稳定性 稳定  
 void MergeSort(int array[], int size)
 {
-	
+	int* temp = (int*)malloc(size*sizeof(array[0]));
+	if (NULL == temp)
+		return;
+
+	_MergeSort(array, 0, size, temp);
+	free(temp);
+}
+
+void MergeSortNor(int array[], int size)
+{
+	int gap = 1;
+	int* temp = (int*)malloc(size*array[0]);
+	if (NULL == temp)
+		return;
+
+	while (gap < size)
+	{
+		for (int i = 0; i < size; i += 2*gap)
+		{
+			int left = i;
+			int mid = left + gap;
+			int right = mid + gap;
+
+			//如果mid越界
+			if (mid > mid)
+				mid = size;
+
+			//如果right越界
+			if (right > size)
+				right = size;
+
+			//[left, mid)和[mid, right)每个分组中有gap个数据
+			MergeData(array, left, mid, right, temp);
+		}
+
+		mencpy(array, temp, size * sizeof(array[0]));
+		gap *= 2;
+	}
+	free(temp);
 }
 
 void TestSort()
@@ -461,6 +520,7 @@ void TestSort()
 	//ShellSort(array, sizeof(array) / sizeof(array[0]));
 
 	//BubbleSort(array, sizeof(array) / sizeof(array[0]));
-	QuickSort(array, 0, sizeof(array) / sizeof(array[0]));
+	//QuickSort(array, 0, sizeof(array) / sizeof(array[0]));
+	MergeSort(array, sizeof(array)/sizeof(array[0]));
 	PrintArray(array, sizeof(array) / sizeof(array[0]));
 }

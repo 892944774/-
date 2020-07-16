@@ -1,5 +1,8 @@
 #pragma once
 #include <stdio.h>
+#include <malloc.h>
+#include <string.h>
+
 
 void InsertSort(int array[], int size);
 
@@ -26,6 +29,9 @@ void QuickSort(int array[], int left, int right);
 //归并排序
 void MergeSort(int array[], int size);
 
-void QuickSortNor(int array[], int size);
+//循环方式的排序
+void MergeSortNor(int array[], int size);
+
+//void QuickSortNor(int array[], int size);
 
 void TestSort();
